@@ -2,12 +2,12 @@ package service
 
 import (
 	"encoding/json"
+	"net/http"
+
 	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/dto"
 	"github.com/abgeo/mailtm/pkg/util"
 	"github.com/go-resty/resty/v2"
-	"net/http"
-	"time"
 )
 
 type APIService struct {
@@ -18,7 +18,7 @@ func NewAPIService(conf *configs.Config) *APIService {
 	client := resty.New()
 	client.SetBaseURL(conf.APIBaseURL).
 		SetHeader("accept", "application/json").
-		SetTimeout(30 * time.Second).
+		SetTimeout(conf.APIClientTimeout).
 		SetError(&util.HTTPError{})
 
 	client.JSONMarshal = json.Marshal
@@ -34,7 +34,6 @@ func (svc *APIService) CreateAccount(data dto.AccountWrite) (account *dto.Accoun
 		SetBody(data).
 		SetResult(&account).
 		Post("/accounts")
-
 	if err != nil {
 		return account, err
 	}
@@ -51,7 +50,6 @@ func (svc *APIService) GetAccount(id string) (account *dto.Account, err error) {
 		SetPathParams(util.StrMap{"id": id}).
 		SetResult(&account).
 		Get("/accounts/{id}")
-
 	if err != nil {
 		return account, err
 	}
@@ -67,7 +65,6 @@ func (svc *APIService) RemoveAccount(id string) (err error) {
 	resp, err := svc.client.R().
 		SetPathParams(util.StrMap{"id": id}).
 		Delete("/accounts/{id}")
-
 	if err != nil {
 		return err
 	}
@@ -83,7 +80,6 @@ func (svc *APIService) GetCurrentAccount() (account *dto.Account, err error) {
 	resp, err := svc.client.R().
 		SetResult(&account).
 		Get("/me")
-
 	if err != nil {
 		return account, err
 	}
@@ -99,7 +95,6 @@ func (svc *APIService) GetDomains() (domains []dto.Domain, err error) {
 	resp, err := svc.client.R().
 		SetResult(&domains).
 		Get("/domains")
-
 	if err != nil {
 		return domains, err
 	}
@@ -116,7 +111,6 @@ func (svc *APIService) GetDomain(id string) (domain *dto.Domain, err error) {
 		SetPathParams(util.StrMap{"id": id}).
 		SetResult(&domain).
 		Get("/domains/{id}")
-
 	if err != nil {
 		return domain, err
 	}
@@ -132,7 +126,6 @@ func (svc *APIService) GetMessages() (messages dto.Messages, err error) {
 	resp, err := svc.client.R().
 		SetResult(&messages).
 		Get("/messages")
-
 	if err != nil {
 		return messages, err
 	}
@@ -149,7 +142,6 @@ func (svc *APIService) GetMessage(id string) (message dto.Message, err error) {
 		SetPathParams(util.StrMap{"id": id}).
 		SetResult(&message).
 		Get("/messages/{id}")
-
 	if err != nil {
 		return message, err
 	}
@@ -165,7 +157,6 @@ func (svc *APIService) RemoveMessage(id string) (err error) {
 	resp, err := svc.client.R().
 		SetPathParams(util.StrMap{"id": id}).
 		Delete("/messages/{id}")
-
 	if err != nil {
 		return err
 	}
@@ -183,7 +174,6 @@ func (svc *APIService) UpdateMessage(id string, data dto.MessageWrite) (err erro
 		SetPathParams(util.StrMap{"id": id}).
 		SetBody(data).
 		Patch("/messages/{id}")
-
 	if err != nil {
 		return err
 	}
@@ -200,7 +190,6 @@ func (svc *APIService) GetSource(id string) (source dto.Source, err error) {
 		SetPathParams(util.StrMap{"id": id}).
 		SetResult(&source).
 		Get("/sources/{id}")
-
 	if err != nil {
 		return source, err
 	}
@@ -217,7 +206,6 @@ func (svc *APIService) GetToken(credentials dto.Credentials) (token *dto.Token, 
 		SetBody(credentials).
 		SetResult(&token).
 		Post("/token")
-
 	if err != nil {
 		return token, err
 	}

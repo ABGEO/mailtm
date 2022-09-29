@@ -3,6 +3,7 @@ package util
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/go-resty/resty/v2"
 )
 
@@ -15,7 +16,11 @@ type HTTPError struct {
 }
 
 func NewHTTPError(response *resty.Response) (err *HTTPError) {
-	err = response.Error().(*HTTPError)
+	err, ok := response.Error().(*HTTPError)
+	if !ok {
+		err = &HTTPError{}
+	}
+
 	err.Code = response.StatusCode()
 
 	if err.Detail == "" {

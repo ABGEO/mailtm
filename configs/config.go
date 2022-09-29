@@ -1,11 +1,15 @@
 package configs
 
+import "time"
+
 type Config struct {
-	APIBaseURL string
+	APIBaseURL       string
+	APIClientTimeout time.Duration
 }
 
 func NewConfig() *Config {
 	return &Config{
-		APIBaseURL: "https://api.mail.tm",
+		APIBaseURL:       "https://api.mail.tm",
+		APIClientTimeout: 30 * time.Second,
 	}
 }
