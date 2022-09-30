@@ -3,8 +3,8 @@ package service
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 
-	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/dto"
 	"github.com/abgeo/mailtm/pkg/util"
 	"github.com/go-resty/resty/v2"
@@ -14,11 +14,13 @@ type APIService struct {
 	client *resty.Client
 }
 
-func NewAPIService(conf *configs.Config) *APIService {
+const timeout = 30 * time.Second
+
+func NewAPIService() *APIService {
 	client := resty.New()
-	client.SetBaseURL(conf.APIBaseURL).
+	client.SetBaseURL("https://api.mail.tm").
+		SetTimeout(timeout).
 		SetHeader("accept", "application/json").
-		SetTimeout(conf.APIClientTimeout).
 		SetError(&util.HTTPError{})
 
 	client.JSONMarshal = json.Marshal
