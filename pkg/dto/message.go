@@ -2,7 +2,7 @@ package dto
 
 import "time"
 
-type emailAddress struct {
+type EmailAddress struct {
 	Address string `json:"address"`
 	Name    string `json:"name"`
 }
@@ -22,8 +22,8 @@ type baseMessage struct {
 	ID             string         `json:"id"`
 	AccountID      string         `json:"accountId"`
 	MsgID          string         `json:"msgid"`
-	From           emailAddress   `json:"from"`
-	To             []emailAddress `json:"to"`
+	From           EmailAddress   `json:"from"`
+	To             []EmailAddress `json:"to"`
 	Subject        string         `json:"subject"`
 	Seen           bool           `json:"seen"`
 	IsDeleted      bool           `json:"isDeleted"`
@@ -41,8 +41,8 @@ type Messages []struct {
 
 type Message struct {
 	baseMessage
-	Cc            []emailAddress `json:"cc"`
-	Bcc           []emailAddress `json:"bcc"`
+	Cc            []EmailAddress `json:"cc"`
+	Bcc           []EmailAddress `json:"bcc"`
 	Flagged       bool           `json:"flagged"`
 	Verifications []string       `json:"verifications"`
 	Retention     bool           `json:"retention"`

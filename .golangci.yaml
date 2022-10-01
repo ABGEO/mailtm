@@ -14,6 +14,8 @@ linters-settings:
     ignore-type-assert-ok: true
     ignore-map-index-ok: true
     ignore-chan-recv-ok: true
+    ignore-names:
+      - i
 
   gomnd:
     ignored-files:

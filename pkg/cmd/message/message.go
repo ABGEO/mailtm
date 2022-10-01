@@ -11,6 +11,7 @@ func NewCmd(options util.CmdOptions) *cobra.Command {
 		Short: "Manage Messages",
 	}
 
+	cmds.AddCommand(NewCmdGet(options))
 	cmds.AddCommand(NewCmdList(options))
 
 	return cmds

@@ -1,8 +1,6 @@
 package message
 
 import (
-	"fmt"
-
 	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/dto"
 	"github.com/abgeo/mailtm/pkg/service"
@@ -66,7 +64,7 @@ func (command *CommandList) Run() error {
 			message.ID,
 			seen,
 			message.Subject,
-			fmt.Sprintf("%s (%s)", message.From.Address, message.From.Name),
+			util.EmailAddressesToString(message.From),
 			message.Intro,
 		})
 	}
