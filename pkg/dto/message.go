@@ -28,10 +28,10 @@ type baseMessage struct {
 	Seen           bool           `json:"seen"`
 	IsDeleted      bool           `json:"isDeleted"`
 	HasAttachments bool           `json:"hasAttachments"`
-	CreatedAt      time.Time      `json:"createdAt"`
-	UpdatedAt      time.Time      `json:"updatedAt"`
 	Size           int            `json:"size"`
 	DownloadURL    string         `json:"downloadUrl"`
+	CreatedAt      time.Time      `json:"createdAt"`
+	UpdatedAt      time.Time      `json:"updatedAt"`
 }
 
 type Messages []struct {

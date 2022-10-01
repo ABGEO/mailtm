@@ -5,6 +5,7 @@ import (
 
 	"github.com/abgeo/mailtm/pkg/cmd/account"
 	"github.com/abgeo/mailtm/pkg/cmd/auth"
+	"github.com/abgeo/mailtm/pkg/cmd/message"
 	"github.com/abgeo/mailtm/pkg/util"
 	"github.com/spf13/cobra"
 )
@@ -31,6 +32,7 @@ CLI client for Mail.tm disposable mail service.
 
 	cmds.AddCommand(account.NewCmd(options))
 	cmds.AddCommand(auth.NewCmd(options))
+	cmds.AddCommand(message.NewCmd(options))
 
 	return cmds
 }
