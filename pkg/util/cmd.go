@@ -6,7 +6,8 @@ import (
 )
 
 type CmdOptions struct {
-	Config configs.Config
+	Version Version
+	Config  configs.Config
 }
 
 type Command interface {

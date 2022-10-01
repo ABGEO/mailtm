@@ -17,7 +17,7 @@ type CommandList struct {
 func NewCmdList(options util.CmdOptions) *cobra.Command {
 	opts := &CommandList{
 		Config:  options.Config,
-		Service: service.NewAPIService(),
+		Service: service.NewAPIService(options.Version),
 	}
 	opts.Service.SetToken(&dto.Token{
 		ID:    options.Config.Auth.ID,

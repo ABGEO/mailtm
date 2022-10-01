@@ -7,8 +7,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	version = "dev"
+	commit  = "unknown"
+	date    = "unknown"
+)
+
 func main() {
 	cmdOpts := util.CmdOptions{
+		Version: util.Version{
+			Number: version,
+			Commit: commit,
+			Date:   date,
+		},
 		Config: configs.NewConfig(),
 	}
 	rootCmd := cmd.NewCmd(cmdOpts)

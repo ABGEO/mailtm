@@ -10,15 +10,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const (
-	VersionName = "Apple"
-	Version     = "0.1.0"
-)
-
 func NewCmd(options util.CmdOptions) *cobra.Command {
 	cmds := &cobra.Command{
 		Use:     "mailtm",
-		Version: fmt.Sprintf("%s (%s)", Version, VersionName),
+		Version: fmt.Sprintf("%s (%s)\n%s", options.Version.Number, options.Version.Date, options.Version.Commit),
 		Short:   "CLI client for Mail.tm disposable mail service.",
 		Long: `		   _  _    _              
  _ __ ___    __ _ (_)| |  | |_  _ __ ___  

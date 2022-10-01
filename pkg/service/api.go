@@ -2,6 +2,7 @@ package service
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -16,11 +17,12 @@ type APIService struct {
 
 const timeout = 30 * time.Second
 
-func NewAPIService() *APIService {
+func NewAPIService(version util.Version) *APIService {
 	client := resty.New()
 	client.SetBaseURL("https://api.mail.tm").
 		SetTimeout(timeout).
-		SetHeader("accept", "application/json").
+		SetHeader("Accept", "application/json").
+		SetHeader("User-Agent", fmt.Sprintf("abgeo-mailtm/%s", version.Number)).
 		SetError(&util.HTTPError{})
 
 	client.JSONMarshal = json.Marshal
@@ -172,7 +174,7 @@ func (svc *APIService) RemoveMessage(id string) (err error) {
 
 func (svc *APIService) UpdateMessage(id string, data dto.MessageWrite) (err error) {
 	resp, err := svc.client.R().
-		SetHeader("content-type", "application/merge-patch+json").
+		SetHeader("Content-Type", "application/merge-patch+json").
 		SetPathParams(util.StrMap{"id": id}).
 		SetBody(data).
 		Patch("/messages/{id}")

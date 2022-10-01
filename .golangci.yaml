@@ -34,4 +34,4 @@ linters:
 
 issues:
   exclude:
-    - \wCmd is a global variable
+    - (version|commit|date) is a global variable
