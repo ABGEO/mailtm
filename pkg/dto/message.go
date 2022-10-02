@@ -7,7 +7,7 @@ type EmailAddress struct {
 	Name    string `json:"name"`
 }
 
-type attachment struct {
+type MessageAttachment struct {
 	ID               string `json:"id"`
 	Filename         string `json:"filename"`
 	ContentType      string `json:"contentType"`
@@ -41,15 +41,15 @@ type Messages []struct {
 
 type Message struct {
 	baseMessage
-	Cc            []EmailAddress `json:"cc"`
-	Bcc           []EmailAddress `json:"bcc"`
-	Flagged       bool           `json:"flagged"`
-	Verifications []string       `json:"verifications"`
-	Retention     bool           `json:"retention"`
-	RetentionDate time.Time      `json:"retentionDate"`
-	Text          string         `json:"text"`
-	HTML          []string       `json:"html"`
-	Attachments   []attachment   `json:"attachments"`
+	Cc            []EmailAddress      `json:"cc"`
+	Bcc           []EmailAddress      `json:"bcc"`
+	Flagged       bool                `json:"flagged"`
+	Verifications []string            `json:"verifications"`
+	Retention     bool                `json:"retention"`
+	RetentionDate time.Time           `json:"retentionDate"`
+	Text          string              `json:"text"`
+	HTML          []string            `json:"html"`
+	Attachments   []MessageAttachment `json:"attachments"`
 }
 
 type MessageWrite struct {

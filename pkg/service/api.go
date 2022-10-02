@@ -189,6 +189,22 @@ func (svc *APIService) UpdateMessage(id string, data dto.MessageWrite) (err erro
 	return nil
 }
 
+func (svc *APIService) DownloadMessageAttachment(messageID string, attachmentID string, path string) (err error) {
+	resp, err := svc.client.R().
+		SetPathParams(util.StrMap{"messageID": messageID, "attachmentID": attachmentID}).
+		SetOutput(path).
+		Get("/messages/{messageID}/attachment/{attachmentID}")
+	if err != nil {
+		return err
+	}
+
+	if resp.StatusCode() != http.StatusOK {
+		return util.NewHTTPError(resp)
+	}
+
+	return nil
+}
+
 func (svc *APIService) GetSource(id string) (source dto.Source, err error) {
 	resp, err := svc.client.R().
 		SetPathParams(util.StrMap{"id": id}).
