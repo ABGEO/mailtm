@@ -10,14 +10,18 @@ import (
 )
 
 type CommandList struct {
-	Config  configs.Config
-	Service *service.APIService
+	Config     configs.Config
+	Service    *service.APIService
+	SSOService *service.SSEService
+
+	Watch bool
 }
 
 func NewCmdList(options util.CmdOptions) *cobra.Command {
 	opts := &CommandList{
-		Config:  options.Config,
-		Service: service.NewAPIService(options.Version),
+		Config:     options.Config,
+		Service:    service.NewAPIService(options.Version),
+		SSOService: service.NewSSEService(options.Version, options.Config.Auth.AuthConfig),
 	}
 	opts.Service.SetToken(&dto.Token{
 		ID:    options.Config.Auth.ID,
@@ -31,6 +35,8 @@ func NewCmdList(options util.CmdOptions) *cobra.Command {
 		Run:   util.GetCmdRunner(opts),
 	}
 
+	cmds.Flags().BoolVarP(&opts.Watch, "watch", "w", false, "Watch new messages")
+
 	return cmds
 }
 
@@ -39,42 +45,77 @@ func (command *CommandList) Complete(cmd *cobra.Command, args []string) error { 
 func (command *CommandList) Validate() error { return nil }
 
 func (command *CommandList) Run() error {
-	messages, err := command.Service.GetMessages()
+	tableHeader := []string{
+		"ID",
+		"Seen",
+		"Subject",
+		"From",
+		"Intro",
+	}
+
+	tableData, err := command.getInitialTableRows()
 	if err != nil {
 		return err
 	}
 
-	tableData := pterm.TableData{
-		{
-			"ID",
-			"Seen",
-			"Subject",
-			"From",
-			"Intro",
-		},
+	area, _ := pterm.DefaultArea.Start()
+	command.drawTableInArea(area, tableData)
+
+	if command.Watch {
+		command.watchMessages(area, tableHeader, tableData)
+	}
+
+	return area.Stop()
+}
+
+func (command *CommandList) getInitialTableRows() (rows pterm.TableData, err error) {
+	messages, err := command.Service.GetMessages()
+	if err != nil {
+		return rows, err
 	}
 
 	for _, message := range messages {
-		seen := "No"
-		if message.Seen {
-			seen = "Yes"
-		}
-
-		tableData = append(tableData, []string{
-			message.ID,
-			seen,
-			message.Subject,
-			util.EmailAddressesToString(message.From),
-			message.Intro,
-		})
+		rows = append(rows, command.messageToTableRow(message))
 	}
 
-	_ = pterm.DefaultTable.
+	return rows, nil
+}
+
+func (command *CommandList) messageToTableRow(message dto.MessagesItem) []string {
+	seen := "No"
+	if message.Seen {
+		seen = "Yes"
+	}
+
+	return []string{
+		message.ID,
+		seen,
+		message.Subject,
+		util.EmailAddressesToString(message.From),
+		message.Intro,
+	}
+}
+
+func (command *CommandList) drawTableInArea(area *pterm.AreaPrinter, tableData pterm.TableData) {
+	table, _ := pterm.DefaultTable.
 		WithData(tableData).
 		WithHeaderRowSeparator("-").
 		WithHasHeader().
 		WithLeftAlignment().
-		Render()
+		Srender()
 
-	return nil
+	area.Update(table)
+}
+
+func (command *CommandList) watchMessages(area *pterm.AreaPrinter, tableHeader []string, tableData pterm.TableData) {
+	// @todo: We also receive an event when message is seen. We have to fix it.
+	_ = command.SSOService.SubscribeMessages(command.Config.Auth.ID, func(message dto.MessagesItem) {
+		// Add new data between header and old data.
+		tableData = append([][]string{
+			tableHeader,
+			command.messageToTableRow(message),
+		}, tableData[1:]...)
+
+		command.drawTableInArea(area, tableData)
+	})
 }

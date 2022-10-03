@@ -2,20 +2,11 @@ package dto
 
 import "time"
 
-type EmailAddress struct {
-	Address string `json:"address"`
-	Name    string `json:"name"`
-}
+type Messages []MessagesItem
 
-type MessageAttachment struct {
-	ID               string `json:"id"`
-	Filename         string `json:"filename"`
-	ContentType      string `json:"contentType"`
-	Disposition      string `json:"disposition"`
-	TransferEncoding string `json:"transferEncoding"`
-	Related          bool   `json:"related"`
-	Size             int    `json:"size"`
-	DownloadURL      string `json:"downloadUrl"`
+type MessagesItem struct {
+	baseMessage
+	Intro string `json:"intro"`
 }
 
 type baseMessage struct {
@@ -34,9 +25,9 @@ type baseMessage struct {
 	UpdatedAt      time.Time      `json:"updatedAt"`
 }
 
-type Messages []struct {
-	baseMessage
-	Intro string `json:"intro"`
+type EmailAddress struct {
+	Address string `json:"address"`
+	Name    string `json:"name"`
 }
 
 type Message struct {
@@ -54,4 +45,15 @@ type Message struct {
 
 type MessageWrite struct {
 	Seen bool `json:"seen"`
+}
+
+type MessageAttachment struct {
+	ID               string `json:"id"`
+	Filename         string `json:"filename"`
+	ContentType      string `json:"contentType"`
+	Disposition      string `json:"disposition"`
+	TransferEncoding string `json:"transferEncoding"`
+	Related          bool   `json:"related"`
+	Size             int    `json:"size"`
+	DownloadURL      string `json:"downloadUrl"`
 }
