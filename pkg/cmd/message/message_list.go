@@ -59,7 +59,7 @@ func (command *CommandList) Run() error {
 	}
 
 	area, _ := pterm.DefaultArea.Start()
-	command.drawTableInArea(area, tableData)
+	command.drawTableInArea(area, tableHeader, tableData)
 
 	if command.Watch {
 		command.watchMessages(area, tableHeader, tableData)
@@ -96,7 +96,9 @@ func (command *CommandList) messageToTableRow(message dto.MessagesItem) []string
 	}
 }
 
-func (command *CommandList) drawTableInArea(area *pterm.AreaPrinter, tableData pterm.TableData) {
+func (command *CommandList) drawTableInArea(area *pterm.AreaPrinter, tableHeader []string, tableData pterm.TableData) {
+	tableData = append(pterm.TableData{tableHeader}, tableData...)
+
 	table, _ := pterm.DefaultTable.
 		WithData(tableData).
 		WithHeaderRowSeparator("-").
@@ -110,12 +112,8 @@ func (command *CommandList) drawTableInArea(area *pterm.AreaPrinter, tableData p
 func (command *CommandList) watchMessages(area *pterm.AreaPrinter, tableHeader []string, tableData pterm.TableData) {
 	// @todo: We also receive an event when message is seen. We have to fix it.
 	_ = command.SSOService.SubscribeMessages(command.Config.Auth.ID, func(message dto.MessagesItem) {
-		// Add new data between header and old data.
-		tableData = append([][]string{
-			tableHeader,
-			command.messageToTableRow(message),
-		}, tableData[1:]...)
+		tableData = append(pterm.TableData{command.messageToTableRow(message)}, tableData...)
 
-		command.drawTableInArea(area, tableData)
+		command.drawTableInArea(area, tableHeader, tableData)
 	})
 }

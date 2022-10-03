@@ -58,10 +58,7 @@ func (command *CommandRand) Run() error {
 		return err
 	}
 
-	command.Config.Auth.ID = token.ID
-	command.Config.Auth.Email = account.Address
-	command.Config.Auth.Token = token.Token
-	command.Config.Write()
+	command.saveAuthData(token, account)
 
 	return command.printAccountInfo(account, password)
 }
@@ -86,6 +83,13 @@ func (command *CommandRand) createRandomAccount() (account *dto.Account, passwor
 	}
 
 	return account, password, nil
+}
+
+func (command *CommandRand) saveAuthData(token *dto.Token, account *dto.Account) {
+	command.Config.Auth.ID = token.ID
+	command.Config.Auth.Email = account.Address
+	command.Config.Auth.Token = token.Token
+	command.Config.Write()
 }
 
 func (command *CommandRand) printAccountInfo(account *dto.Account, password string) (err error) {

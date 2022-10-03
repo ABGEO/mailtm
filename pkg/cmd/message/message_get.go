@@ -59,16 +59,24 @@ func (command *CommandGet) Run() error {
 		return err
 	}
 
+	err = command.printMessage(message)
+	if err != nil {
+		return err
+	}
+
+	if message.HasAttachments {
+		err = command.printAttachments(message)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (command *CommandGet) printMessage(message dto.Message) (err error) {
 	err = pterm.DefaultTable.
-		WithData(pterm.TableData{
-			{"Id", message.ID},
-			{"From", util.EmailAddressesToString(message.From)},
-			{"Cc", util.EmailAddressesToString(message.Cc...)},
-			{"Bcc", util.EmailAddressesToString(message.Bcc...)},
-			{"Subject", message.Subject},
-			{"Retention Date", message.RetentionDate.Local().Format("02 January 2006 15:04:05")},
-			{"Created At", message.CreatedAt.Local().Format("02 January 2006 15:04:05")},
-		}).
+		WithData(command.messageToTableData(message)).
 		WithSeparator(" : ").
 		WithBoxed().
 		WithLeftAlignment().
@@ -80,22 +88,30 @@ func (command *CommandGet) Run() error {
 	pterm.DefaultParagraph.Println()
 	pterm.DefaultParagraph.Println(message.Text)
 
-	if message.HasAttachments {
-		pterm.DefaultParagraph.Println()
-		pterm.DefaultParagraph.Println("Attachments:")
-		pterm.DefaultParagraph.Println()
+	return nil
+}
 
-		var attachments []pterm.BulletListItem
-		for _, attachment := range message.Attachments {
-			attachments = append(attachments, pterm.BulletListItem{
-				Text: fmt.Sprintf("%s - %s", attachment.ID, attachment.Filename),
-			})
-		}
+func (command *CommandGet) messageToTableData(message dto.Message) (data pterm.TableData) {
+	return pterm.TableData{
+		{"Id", message.ID},
+		{"From", util.EmailAddressesToString(message.From)},
+		{"Cc", util.EmailAddressesToString(message.Cc...)},
+		{"Bcc", util.EmailAddressesToString(message.Bcc...)},
+		{"Subject", message.Subject},
+		{"Retention Date", message.RetentionDate.Local().Format("02 January 2006 15:04:05")},
+		{"Created At", message.CreatedAt.Local().Format("02 January 2006 15:04:05")},
+	}
+}
 
-		if err = pterm.DefaultBulletList.WithItems(attachments).Render(); err != nil {
-			return err
-		}
+func (command *CommandGet) printAttachments(message dto.Message) error {
+	pterm.DefaultParagraph.Println()
+	pterm.DefaultParagraph.Println("Attachments:")
+	pterm.DefaultParagraph.Println()
+
+	attachments := make([]pterm.BulletListItem, len(message.Attachments))
+	for i, attachment := range message.Attachments {
+		attachments[i].Text = fmt.Sprintf("%s - %s", attachment.ID, attachment.Filename)
 	}
 
-	return nil
+	return pterm.DefaultBulletList.WithItems(attachments).Render()
 }
