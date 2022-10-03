@@ -24,14 +24,22 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - golint
-    - maligned
-    - scopelint
-    - interfacer
-    - exhaustivestruct
     - wrapcheck
     - gochecknoinits
+    - exhaustruct
+    - nonamedreturns
 
+    # Deprecated.
+    - scopelint
+    - interfacer
+    - maligned
+    - golint
+    - exhaustivestruct
+    - varcheck
+    - structcheck
+    - deadcode
+    - ifshort
+    - nosnakecase
 issues:
   exclude:
     - (version|commit|date) is a global variable
