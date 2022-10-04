@@ -8,8 +8,8 @@
     <a href="https://github.com/abgeo/mailtm/actions/workflows/ci.yaml">
         <img alt="Lint" src="https://github.com/abgeo/mailtm/actions/workflows/ci.yaml/badge.svg">
     </a>
-    <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FABGEO%2Fmailtm?ref=badge_shield">
-        <img alt="FOSSA Status" src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FABGEO%2Fmailtm.svg?type=shield"/>
+    <a href="https://app.fossa.com/projects/custom%2B30026%2Fgithub.com%2FABGEO%2Fmailtm?ref=badge_shield" alt="FOSSA Status">
+        <img src="https://app.fossa.com/api/projects/custom%2B30026%2Fgithub.com%2FABGEO%2Fmailtm.svg?type=shield"/>
     </a>
     <a href="https://sonarcloud.io/project/overview?id=ABGEO_mailtm">
         <img alt="Quality Gate Status" src="https://sonarcloud.io/api/project_badges/measure?project=ABGEO_mailtm&metric=alert_status"/>
@@ -45,4 +45,4 @@
 Copyright (c) 2022 [Temuri Takalandze](https://abgeo.dev).  
 Released under the [GPL-3.0](LICENSE) license.
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FABGEO%2Fmailtm.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FABGEO%2Fmailtm?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B30026%2Fgithub.com%2FABGEO%2Fmailtm.svg?type=shield)](https://app.fossa.com/projects/custom%2B30026%2Fgithub.com%2FABGEO%2Fmailtm?ref=badge_shield)

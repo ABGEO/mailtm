@@ -1,0 +1,13 @@
+version: 3
+
+telemetry:
+  scope: "off"
+
+project:
+  name: mailtm
+  link: github.com/ABGEO/mailtm
+  url: github.com/ABGEO/mailtm
+
+vendoredDependencies:
+  forceRescans: false
+  scanMethod: CLILicenseScan

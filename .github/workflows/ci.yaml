@@ -19,14 +19,6 @@ jobs:
         with:
           fetch-depth: 0
       - uses: sonarsource/sonarcloud-github-action@master
-        with:
-          args: >
-            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-            -Dsonar.links.homepage=https://github.com/ABGEO/mailtm
-            -Dsonar.links.issue=https://github.com/ABGEO/mailtm/issues
-            -Dsonar.links.scm=https://github.com/ABGEO/mailtm
-            -Dsonar.showProfiling=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -35,6 +27,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: fossas/fossa-action@main
+      - name: FOSSA Scan
+        uses: fossas/fossa-action@main
         with:
           api-key: ${{ secrets.FOSSA_API_KEY }}
+      - name: FOSSA Test
+        uses: fossas/fossa-action@main
+        with:
+          api-key: ${{ secrets.FOSSA_API_KEY }}
+          run-tests: true
