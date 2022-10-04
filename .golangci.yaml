@@ -27,6 +27,7 @@ linters:
     - wrapcheck
     - gochecknoinits
     - exhaustruct
+    - exhaustivestruct
     - nonamedreturns
 
     # Deprecated.
@@ -34,12 +35,16 @@ linters:
     - interfacer
     - maligned
     - golint
-    - exhaustivestruct
     - varcheck
-    - structcheck
     - deadcode
     - ifshort
     - nosnakecase
+
+    # Disabled because of generics
+    - rowserrcheck
+    - sqlclosecheck
+    - wastedassign
+    - structcheck
 issues:
   exclude:
     - (version|commit|date) is a global variable
