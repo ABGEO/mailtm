@@ -36,3 +36,19 @@ jobs:
         with:
           api-key: ${{ secrets.FOSSA_API_KEY }}
           run-tests: true
+
+  snyk:
+    permissions:
+      security-events: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: snyk/actions/golang@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
+      - uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif

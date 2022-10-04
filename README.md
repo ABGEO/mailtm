@@ -45,4 +45,4 @@
 Copyright (c) 2022 [Temuri Takalandze](https://abgeo.dev).  
 Released under the [GPL-3.0](LICENSE) license.
 
-[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B30026%2Fgithub.com%2FABGEO%2Fmailtm.svg?type=shield)](https://app.fossa.com/projects/custom%2B30026%2Fgithub.com%2FABGEO%2Fmailtm?ref=badge_shield)
+[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B30026%2Fgithub.com%2FABGEO%2Fmailtm.svg?type=large)](https://app.fossa.com/projects/custom%2B30026%2Fgithub.com%2FABGEO%2Fmailtm?ref=badge_large)
