@@ -9,8 +9,8 @@ import (
 
 var (
 	version = "dev"
-	commit  = "unknown"
-	date    = "unknown"
+	commit  = "unknown" //nolint:gochecknoglobals
+	date    = "unknown" //nolint:gochecknoglobals
 )
 
 func main() {

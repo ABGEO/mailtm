@@ -40,11 +40,8 @@ linters:
     - ifshort
     - nosnakecase
 
-    # Disabled because of generics
+    # Disabled because of generics.
     - rowserrcheck
     - sqlclosecheck
     - wastedassign
     - structcheck
-issues:
-  exclude:
-    - (version|commit|date) is a global variable

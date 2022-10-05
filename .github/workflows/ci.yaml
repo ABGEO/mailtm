@@ -1,6 +1,8 @@
 name: CI
 on:
   push:
+    tags-ignore:
+      - "**"
   pull_request:
 jobs:
   lint:
@@ -52,3 +54,22 @@ jobs:
       - uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
+
+  goreleaser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+          cache: true
+      - name: "GoReleaser Check"
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: check
+      - name: "GoReleaser build"
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: build --snapshot
