@@ -1,12 +1,17 @@
-<h1 align="center">mailtm</h1>
-<p  align="center">CLI client for <a href="https://mail.tm">Mail.tm</a> disposable mail service</p>
+<div align="center">
+<img width="600px" src="./.assets/logo.png" />
 
-<p align="center">
+<p>CLI client for <a href="https://mail.tm">Mail.tm</a> disposable mail service</p>
+
+<p>
     <a href="https://github.com/abgeo/mailtm">
         <img alt="GitHub go.mod Go version of a Go module" src="https://img.shields.io/github/go-mod/go-version/abgeo/mailtm.svg">
     </a>
     <a href="https://github.com/abgeo/mailtm/actions/workflows/ci.yaml">
-        <img alt="Lint" src="https://github.com/abgeo/mailtm/actions/workflows/ci.yaml/badge.svg">
+        <img alt="CI" src="https://github.com/abgeo/mailtm/actions/workflows/ci.yaml/badge.svg">
+    </a>
+    <a href="https://github.com/abgeo/mailtm/actions/workflows/cd.yaml">
+        <img alt="CD" src="https://github.com/abgeo/mailtm/actions/workflows/cd.yaml/badge.svg">
     </a>
     <a href="https://app.fossa.com/projects/custom%2B30026%2Fgithub.com%2FABGEO%2Fmailtm?ref=badge_shield" alt="FOSSA Status">
         <img src="https://app.fossa.com/api/projects/custom%2B30026%2Fgithub.com%2FABGEO%2Fmailtm.svg?type=shield"/>
@@ -28,13 +33,24 @@
     </a>
 </p>
 
-## Requirements
-
-- `Go (>=1.19)`
+<p><img width="1000" src="./.assets/demo.gif" /></p>
+</div>
 
 ## Installation
 
+## Binary
+
+Go to the [Releases](https://github.com/ABGEO/mailtm/releases) page and download the version suitable for your OS.
+
+## Source
+
+```shell
+$ go install github.com/abgeo/mailtm@latest
+```
+
 ## Usage
+
+Get available commands by running `mailtm --help`
 
 ## Authors
 
