@@ -13,7 +13,7 @@ func EmailAddressesToString(addresses ...dto.EmailAddress) string {
 	for i, address := range addresses {
 		formattedAddress := address.Address
 		if address.Name != "" {
-			formattedAddress += fmt.Sprintf("(%s)", address.Name)
+			formattedAddress += fmt.Sprintf(" (%s)", address.Name)
 		}
 
 		formattedAddresses[i] = formattedAddress
