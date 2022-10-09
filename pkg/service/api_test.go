@@ -30,7 +30,7 @@ func (suite *APIServiceSuite) SetupSuite() {
 	httpmock.ActivateNonDefault(suite.Service.client.GetClient())
 }
 
-func (suite *APIServiceSuite) BeforeTest() {
+func (suite *APIServiceSuite) TearDownTest() {
 	httpmock.Reset()
 
 	err := os.RemoveAll("/tmp/attachments")
