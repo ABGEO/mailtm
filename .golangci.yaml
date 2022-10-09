@@ -21,6 +21,12 @@ linters-settings:
     ignored-files:
       - config.go
 
+issues:
+  exclude-rules:
+    - linters:
+        - funlen
+      path: "_test.go"
+
 linters:
   enable-all: true
   disable:
@@ -29,6 +35,8 @@ linters:
     - exhaustruct
     - exhaustivestruct
     - nonamedreturns
+    - paralleltest
+    - testpackage
 
     # Deprecated.
     - scopelint

@@ -141,7 +141,7 @@ func (svc *APIService) GetMessages() (messages dto.Messages, err error) {
 	return messages, nil
 }
 
-func (svc *APIService) GetMessage(id string) (message dto.Message, err error) {
+func (svc *APIService) GetMessage(id string) (message *dto.Message, err error) {
 	resp, err := svc.client.R().
 		SetPathParams(util.StrMap{"id": id}).
 		SetResult(&message).
@@ -205,7 +205,7 @@ func (svc *APIService) DownloadMessageAttachment(messageID string, attachmentID 
 	return nil
 }
 
-func (svc *APIService) GetSource(id string) (source dto.Source, err error) {
+func (svc *APIService) GetSource(id string) (source *dto.Source, err error) {
 	resp, err := svc.client.R().
 		SetPathParams(util.StrMap{"id": id}).
 		SetResult(&source).

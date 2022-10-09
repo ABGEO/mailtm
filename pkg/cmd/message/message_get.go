@@ -74,7 +74,7 @@ func (command *CommandGet) Run() error {
 	return nil
 }
 
-func (command *CommandGet) printMessage(message dto.Message) (err error) {
+func (command *CommandGet) printMessage(message *dto.Message) (err error) {
 	err = pterm.DefaultTable.
 		WithData(command.messageToTableData(message)).
 		WithSeparator(" : ").
@@ -91,7 +91,7 @@ func (command *CommandGet) printMessage(message dto.Message) (err error) {
 	return nil
 }
 
-func (command *CommandGet) messageToTableData(message dto.Message) (data pterm.TableData) {
+func (command *CommandGet) messageToTableData(message *dto.Message) (data pterm.TableData) {
 	return pterm.TableData{
 		{"Id", message.ID},
 		{"From", util.EmailAddressesToString(message.From)},
@@ -103,7 +103,7 @@ func (command *CommandGet) messageToTableData(message dto.Message) (data pterm.T
 	}
 }
 
-func (command *CommandGet) printAttachments(message dto.Message) error {
+func (command *CommandGet) printAttachments(message *dto.Message) error {
 	pterm.DefaultParagraph.Println()
 	pterm.DefaultParagraph.Println("Attachments:")
 	pterm.DefaultParagraph.Println()
