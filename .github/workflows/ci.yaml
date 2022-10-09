@@ -21,20 +21,31 @@ jobs:
       - uses: actions/setup-go@v2
         with:
           go-version: 1.19
-      - run: go test ./... -coverprofile=coverage.out -covermode=atomic
+      - run: go test ./... -coverprofile=coverage.out -covermode=atomic -json > report.json
       - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.out
           fail_ci_if_error: true
           verbose: true
+      - uses: actions/upload-artifact@v2
+        with:
+          name: test-result
+          path: |
+            report.json
+            coverage.out
 
   sonarcloud:
     runs-on: ubuntu-latest
+    needs:
+      - test
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - uses: actions/download-artifact@v2
+        with:
+          name: test-result
       - uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
