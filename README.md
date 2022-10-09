@@ -28,6 +28,9 @@
     <a href="https://sonarcloud.io/project/overview?id=ABGEO_mailtm">
         <img alt="Security Rating" src="https://sonarcloud.io/api/project_badges/measure?project=ABGEO_mailtm&metric=security_rating"/>
     </a>
+    <a href="https://codecov.io/gh/ABGEO/mailtm">
+     <img src="https://codecov.io/gh/ABGEO/mailtm/branch/main/graph/badge.svg?token=TC7WWTT2A5"/>
+     </a>
     <a href="https://goreportcard.com/report/github.com/ABGEO/mailtm">
         <img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/ABGEO/mailtm">
     </a>
