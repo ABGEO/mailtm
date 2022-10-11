@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/abgeo/mailtm/configs"
+	"github.com/abgeo/mailtm/pkg/command"
 	"github.com/abgeo/mailtm/pkg/dto"
 	"github.com/abgeo/mailtm/pkg/service"
 	"github.com/abgeo/mailtm/pkg/util"
@@ -24,7 +25,7 @@ type CommandRand struct {
 	Service *service.APIService
 }
 
-func NewCmdRandom(options util.CmdOptions) *cobra.Command {
+func NewCmdRandom(options command.Options) *cobra.Command {
 	opts := &CommandRand{
 		Config:  options.Config,
 		Service: service.NewAPIService(options.Version),
@@ -34,7 +35,7 @@ func NewCmdRandom(options util.CmdOptions) *cobra.Command {
 		Use:   "random",
 		Short: "Authenticate with random email",
 		Args:  cobra.NoArgs,
-		Run:   util.GetCmdRunner(opts),
+		Run:   command.GetRunner(opts),
 	}
 
 	return cmds

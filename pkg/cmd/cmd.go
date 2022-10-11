@@ -6,11 +6,11 @@ import (
 	"github.com/abgeo/mailtm/pkg/cmd/account"
 	"github.com/abgeo/mailtm/pkg/cmd/auth"
 	"github.com/abgeo/mailtm/pkg/cmd/message"
-	"github.com/abgeo/mailtm/pkg/util"
+	"github.com/abgeo/mailtm/pkg/command"
 	"github.com/spf13/cobra"
 )
 
-func NewCmd(options util.CmdOptions) *cobra.Command {
+func NewCmd(options command.Options) *cobra.Command {
 	cmds := &cobra.Command{
 		Use:     "mailtm",
 		Version: fmt.Sprintf("%s (%s)\n%s", options.Version.Number, options.Version.Date, options.Version.Commit),

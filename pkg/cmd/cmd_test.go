@@ -3,7 +3,8 @@ package cmd
 import (
 	"testing"
 
-	"github.com/abgeo/mailtm/pkg/util"
+	"github.com/abgeo/mailtm/pkg/command"
+	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/abgeo/mailtm/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -14,8 +15,8 @@ type CMDSuite struct {
 }
 
 func (suite *CMDSuite) SetupSuite() {
-	suite.CmdOptions = util.CmdOptions{
-		Version: util.Version{
+	suite.CmdOptions = command.Options{
+		Version: types.Version{
 			Number: "foo",
 			Date:   "bar",
 			Commit: "baz",

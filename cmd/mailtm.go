@@ -3,7 +3,8 @@ package main
 import (
 	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/cmd"
-	"github.com/abgeo/mailtm/pkg/util"
+	"github.com/abgeo/mailtm/pkg/command"
+	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/spf13/cobra"
 )
 
@@ -14,8 +15,8 @@ var (
 )
 
 func main() {
-	cmdOpts := util.CmdOptions{
-		Version: util.Version{
+	cmdOpts := command.Options{
+		Version: types.Version{
 			Number: version,
 			Commit: commit,
 			Date:   date,

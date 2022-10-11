@@ -2,6 +2,7 @@ package message
 
 import (
 	"github.com/abgeo/mailtm/configs"
+	"github.com/abgeo/mailtm/pkg/command"
 	"github.com/abgeo/mailtm/pkg/dto"
 	"github.com/abgeo/mailtm/pkg/service"
 	"github.com/abgeo/mailtm/pkg/util"
@@ -17,7 +18,7 @@ type CommandList struct {
 	Watch bool
 }
 
-func NewCmdList(options util.CmdOptions) *cobra.Command {
+func NewCmdList(options command.Options) *cobra.Command {
 	opts := &CommandList{
 		Config:     options.Config,
 		Service:    service.NewAPIService(options.Version),
@@ -32,7 +33,7 @@ func NewCmdList(options util.CmdOptions) *cobra.Command {
 		Use:   "list",
 		Short: "List messages",
 		Args:  cobra.NoArgs,
-		Run:   util.GetCmdRunner(opts),
+		Run:   command.GetRunner(opts),
 	}
 
 	cmds.Flags().BoolVarP(&opts.Watch, "watch", "w", false, "Watch new messages")

@@ -10,7 +10,7 @@ import (
 
 	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/dto"
-	"github.com/abgeo/mailtm/pkg/util"
+	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -25,7 +25,7 @@ type SSEServiceSuite struct {
 }
 
 func (suite *SSEServiceSuite) SetupSuite() {
-	version := util.Version{
+	version := types.Version{
 		Number: "test",
 	}
 	authConf := configs.AuthConfig{

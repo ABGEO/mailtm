@@ -1,4 +1,4 @@
-package util
+package command
 
 import (
 	"errors"
@@ -35,8 +35,8 @@ func TestCMDSuite(t *testing.T) {
 	suite.Run(t, new(CMDSuite))
 }
 
-func (suite *CMDSuite) TestGetCmdRunner() {
-	runner := GetCmdRunner(&dummyCommand{})
+func (suite *CMDSuite) TestGetRunner() {
+	runner := GetRunner(&dummyCommand{})
 	cmds := &cobra.Command{
 		Use: "dummy",
 		Run: runner,
@@ -49,7 +49,7 @@ func (suite *CMDSuite) TestGetCmdRunner() {
 	}
 
 	//nolint:gosec
-	cmd := exec.Command(os.Args[0], "-test.run=TestCMDSuite", "-testify.m=TestGetCmdRunner")
+	cmd := exec.Command(os.Args[0], "-test.run=TestCMDSuite", "-testify.m=TestGetRunner")
 	cmd.Env = append(os.Environ(), "CRASH=1")
 	err := cmd.Run()
 

@@ -3,9 +3,9 @@ package account
 import (
 	"fmt"
 
+	"github.com/abgeo/mailtm/pkg/command"
 	"github.com/abgeo/mailtm/pkg/dto"
 	"github.com/abgeo/mailtm/pkg/service"
-	"github.com/abgeo/mailtm/pkg/util"
 	"github.com/pterm/pterm"
 	"github.com/spf13/cobra"
 )
@@ -14,7 +14,7 @@ type CommandCurrent struct {
 	Service *service.APIService
 }
 
-func NewCmdCurrent(options util.CmdOptions) *cobra.Command {
+func NewCmdCurrent(options command.Options) *cobra.Command {
 	opts := &CommandCurrent{
 		Service: service.NewAPIService(options.Version),
 	}
@@ -27,7 +27,7 @@ func NewCmdCurrent(options util.CmdOptions) *cobra.Command {
 		Use:   "current",
 		Short: "Get current account",
 		Args:  cobra.NoArgs,
-		Run:   util.GetCmdRunner(opts),
+		Run:   command.GetRunner(opts),
 	}
 
 	return cmds

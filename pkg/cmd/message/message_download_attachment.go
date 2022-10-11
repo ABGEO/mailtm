@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	"github.com/abgeo/mailtm/configs"
+	"github.com/abgeo/mailtm/pkg/command"
 	"github.com/abgeo/mailtm/pkg/dto"
 	"github.com/abgeo/mailtm/pkg/service"
-	"github.com/abgeo/mailtm/pkg/util"
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +25,7 @@ const numberOfArguments = 2
 
 var errAttachmentNotFound = errors.New("attachment not found")
 
-func NewCmdDownloadAttachment(options util.CmdOptions) *cobra.Command {
+func NewCmdDownloadAttachment(options command.Options) *cobra.Command {
 	opts := &CommandDownloadAttachment{
 		Config:  options.Config,
 		Service: service.NewAPIService(options.Version),
@@ -40,7 +40,7 @@ func NewCmdDownloadAttachment(options util.CmdOptions) *cobra.Command {
 		Short:   "Download message attachment by ID",
 		Example: "mailtm message download-attachment 63387xb206061bf4aaba863e ATTACH000001",
 		Args:    cobra.ExactArgs(numberOfArguments),
-		Run:     util.GetCmdRunner(opts),
+		Run:     command.GetRunner(opts),
 	}
 
 	cmds.Flags().StringVarP(&opts.FileDir, "dir", "d", "./", "Directory path to save file in")

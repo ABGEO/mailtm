@@ -6,7 +6,7 @@ import (
 
 	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/dto"
-	"github.com/abgeo/mailtm/pkg/util"
+	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/r3labs/sse/v2"
 )
 
@@ -14,7 +14,7 @@ type SSEService struct {
 	client *sse.Client
 }
 
-func NewSSEService(version util.Version, auth configs.AuthConfig) *SSEService {
+func NewSSEService(version types.Version, auth configs.AuthConfig) *SSEService {
 	client := sse.NewClient("https://mercure.mail.tm/.well-known/mercure", func(c *sse.Client) {
 		c.Headers = map[string]string{
 			"Accept":        "application/json",

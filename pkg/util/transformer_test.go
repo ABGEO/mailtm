@@ -16,7 +16,7 @@ func TestTransformerSuiteSuite(t *testing.T) {
 	suite.Run(t, new(TransformerSuite))
 }
 
-func (suite *HTTPErrorSuite) TestEmailAddressesToString_OneWithoutName() {
+func (suite *TransformerSuite) TestEmailAddressesToString_OneWithoutName() {
 	address1 := dto.EmailAddress{
 		Address: "foo@bar.baz",
 	}
@@ -25,7 +25,7 @@ func (suite *HTTPErrorSuite) TestEmailAddressesToString_OneWithoutName() {
 	assert.Equal(suite.T(), "foo@bar.baz", transformed)
 }
 
-func (suite *HTTPErrorSuite) TestEmailAddressesToString_OneWithName() {
+func (suite *TransformerSuite) TestEmailAddressesToString_OneWithName() {
 	address1 := dto.EmailAddress{
 		Address: "foo@bar.baz",
 		Name:    "Foo Bar",
@@ -35,7 +35,7 @@ func (suite *HTTPErrorSuite) TestEmailAddressesToString_OneWithName() {
 	assert.Equal(suite.T(), "foo@bar.baz (Foo Bar)", transformed)
 }
 
-func (suite *HTTPErrorSuite) TestEmailAddressesToString_ManyWithoutName() {
+func (suite *TransformerSuite) TestEmailAddressesToString_ManyWithoutName() {
 	address1 := dto.EmailAddress{
 		Address: "foo@bar.baz",
 	}
@@ -47,7 +47,7 @@ func (suite *HTTPErrorSuite) TestEmailAddressesToString_ManyWithoutName() {
 	assert.Equal(suite.T(), "foo@bar.baz, baz@bar.foo", transformed)
 }
 
-func (suite *HTTPErrorSuite) TestEmailAddressesToString_ManyWithName() {
+func (suite *TransformerSuite) TestEmailAddressesToString_ManyWithName() {
 	address1 := dto.EmailAddress{
 		Address: "foo@bar.baz",
 		Name:    "Foo Bar",
@@ -61,7 +61,7 @@ func (suite *HTTPErrorSuite) TestEmailAddressesToString_ManyWithName() {
 	assert.Equal(suite.T(), "foo@bar.baz (Foo Bar), baz@bar.foo (Baz Bar)", transformed)
 }
 
-func (suite *HTTPErrorSuite) TestEmailAddressesToString_ManyMixed() {
+func (suite *TransformerSuite) TestEmailAddressesToString_ManyMixed() {
 	address1 := dto.EmailAddress{
 		Address: "foo@bar.baz",
 	}

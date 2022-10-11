@@ -15,7 +15,7 @@ func TestRandomSuiteSuite(t *testing.T) {
 	suite.Run(t, new(RandomSuite))
 }
 
-func (suite *HTTPErrorSuite) TestRandomString() {
+func (suite *RandomSuite) TestRandomString() {
 	random := RandomString(16)
 
 	assert.Equal(suite.T(), 16, len(random))

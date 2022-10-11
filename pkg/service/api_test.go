@@ -9,7 +9,8 @@ import (
 	"testing"
 
 	"github.com/abgeo/mailtm/pkg/dto"
-	"github.com/abgeo/mailtm/pkg/util"
+	"github.com/abgeo/mailtm/pkg/errors"
+	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -22,7 +23,7 @@ type APIServiceSuite struct {
 }
 
 func (suite *APIServiceSuite) SetupSuite() {
-	version := util.Version{
+	version := types.Version{
 		Number: "test",
 	}
 	suite.Service = NewAPIService(version)
@@ -95,7 +96,7 @@ func (suite *APIServiceSuite) TestCreateAccount_InvalidInput() {
 
 	assert.NotNil(suite.T(), err)
 	assert.Nil(suite.T(), response)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "address: This value is not a valid email address. [400]", err.Error())
 }
 
@@ -142,7 +143,7 @@ func (suite *APIServiceSuite) TestGetAccount_NotFound() {
 
 	assert.NotNil(suite.T(), err)
 	assert.Nil(suite.T(), response)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "Not Found [404]", err.Error())
 }
 
@@ -177,7 +178,7 @@ func (suite *APIServiceSuite) TestRemoveAccount_InternalServerError() {
 	err := suite.Service.RemoveAccount("acc001")
 
 	assert.NotNil(suite.T(), err)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "Internal Server Error [500]", err.Error())
 }
 
@@ -223,7 +224,7 @@ func (suite *APIServiceSuite) TestCurrentAccount_Unauthorized() {
 
 	assert.NotNil(suite.T(), err)
 	assert.Nil(suite.T(), response)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "JWT Token not found [401]", err.Error())
 }
 
@@ -277,7 +278,7 @@ func (suite *APIServiceSuite) TestGetDomains_InternalServerError() {
 
 	assert.NotNil(suite.T(), err)
 	assert.Nil(suite.T(), response)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "Internal Server Error [500]", err.Error())
 }
 
@@ -321,7 +322,7 @@ func (suite *APIServiceSuite) TestGetDomain_NotFound() {
 
 	assert.NotNil(suite.T(), err)
 	assert.Nil(suite.T(), response)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "Not Found [404]", err.Error())
 }
 
@@ -385,7 +386,7 @@ func (suite *APIServiceSuite) TestGetMessages_InternalServerError() {
 
 	assert.NotNil(suite.T(), err)
 	assert.Nil(suite.T(), response)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "Internal Server Error [500]", err.Error())
 }
 
@@ -475,7 +476,7 @@ func (suite *APIServiceSuite) TestGetMessage_NotFound() {
 	_, err := suite.Service.GetMessage("mess001")
 
 	assert.NotNil(suite.T(), err)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "Not Found [404]", err.Error())
 }
 
@@ -510,7 +511,7 @@ func (suite *APIServiceSuite) TestRemoveMessage_InternalServerError() {
 	err := suite.Service.RemoveMessage("mess001")
 
 	assert.NotNil(suite.T(), err)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "Internal Server Error [500]", err.Error())
 }
 
@@ -545,7 +546,7 @@ func (suite *APIServiceSuite) TestUpdateMessage_InvalidInput() {
 	err := suite.Service.UpdateMessage("mess001", dto.MessageWrite{})
 
 	assert.NotNil(suite.T(), err)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "seen: This value is required. [400]", err.Error())
 }
 
@@ -580,7 +581,7 @@ func (suite *APIServiceSuite) TestDownloadMessageAttachment_NotFound() {
 	err := suite.Service.DownloadMessageAttachment("mess1", "ATTACH000001", "/tmp/bar")
 
 	assert.NotNil(suite.T(), err)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), " [404]", err.Error())
 }
 
@@ -622,7 +623,7 @@ func (suite *APIServiceSuite) TestGetSource_NotFound() {
 	_, err := suite.Service.GetSource("src001")
 
 	assert.NotNil(suite.T(), err)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "Not Found [404]", err.Error())
 }
 
@@ -671,7 +672,7 @@ func (suite *APIServiceSuite) TestGetToken_InvalidCredentials() {
 
 	assert.NotNil(suite.T(), err)
 	assert.Nil(suite.T(), response)
-	assert.IsType(suite.T(), &util.HTTPError{}, err)
+	assert.IsType(suite.T(), &errors.HTTPError{}, err)
 	assert.Equal(suite.T(), "Invalid credentials. [401]", err.Error())
 }
 

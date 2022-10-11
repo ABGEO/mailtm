@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/abgeo/mailtm/pkg/util"
+	"github.com/abgeo/mailtm/pkg/command"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/suite"
 )
@@ -12,7 +12,7 @@ import (
 type BaseCMDSuite struct {
 	suite.Suite
 
-	CmdOptions util.CmdOptions
+	CmdOptions command.Options
 }
 
 func (suite *BaseCMDSuite) GetCommandOutput(command *cobra.Command) string {

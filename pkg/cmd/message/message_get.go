@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/abgeo/mailtm/configs"
+	"github.com/abgeo/mailtm/pkg/command"
 	"github.com/abgeo/mailtm/pkg/dto"
 	"github.com/abgeo/mailtm/pkg/service"
 	"github.com/abgeo/mailtm/pkg/util"
@@ -18,7 +19,7 @@ type CommandGet struct {
 	ID string
 }
 
-func NewCmdGet(options util.CmdOptions) *cobra.Command {
+func NewCmdGet(options command.Options) *cobra.Command {
 	opts := &CommandGet{
 		Config:  options.Config,
 		Service: service.NewAPIService(options.Version),
@@ -32,7 +33,7 @@ func NewCmdGet(options util.CmdOptions) *cobra.Command {
 		Use:   "get [id]",
 		Short: "Get single message by ID",
 		Args:  cobra.ExactArgs(1),
-		Run:   util.GetCmdRunner(opts),
+		Run:   command.GetRunner(opts),
 	}
 
 	return cmds

@@ -1,4 +1,4 @@
-package util
+package types
 
 type StrMap map[string]string
 

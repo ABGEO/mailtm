@@ -1,12 +1,13 @@
-package util
+package command
 
 import (
 	"github.com/abgeo/mailtm/configs"
+	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/spf13/cobra"
 )
 
-type CmdOptions struct {
-	Version Version
+type Options struct {
+	Version types.Version
 	Config  configs.Config
 }
 
@@ -16,7 +17,7 @@ type Command interface {
 	Run() error
 }
 
-func GetCmdRunner(command Command) func(cmd *cobra.Command, args []string) {
+func GetRunner(command Command) func(cmd *cobra.Command, args []string) {
 	return func(cmd *cobra.Command, args []string) {
 		cobra.CheckErr(command.Complete(cmd, args))
 		cobra.CheckErr(command.Validate())
