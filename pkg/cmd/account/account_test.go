@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/abgeo/mailtm/pkg/command"
-	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/abgeo/mailtm/test"
 	"github.com/abgeo/mailtm/test/mocks"
 	"github.com/stretchr/testify/assert"
@@ -12,31 +11,24 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type AccountCMDSuite struct {
+type AccountCmdSuite struct {
 	test.BaseCMDSuite
 
 	APIServiceMock *mocks.APIServiceInterface
 }
 
-func TestAccountCMDSuite(t *testing.T) {
-	suite.Run(t, new(AccountCMDSuite))
+func TestAccountCmdSuite(t *testing.T) {
+	suite.Run(t, new(AccountCmdSuite))
 }
 
-func (suite *AccountCMDSuite) SetupSuite() {
-	appVersion := types.Version{
-		Number: "foo",
-		Date:   "bar",
-		Commit: "baz",
-	}
-
+func (suite *AccountCmdSuite) SetupSuite() {
 	suite.APIServiceMock = mocks.NewAPIServiceInterface(suite.T())
 	suite.CmdOptions = command.Options{
-		Version:    appVersion,
 		APIService: suite.APIServiceMock,
 	}
 }
 
-func (suite *AccountCMDSuite) TestAccountRootCMD() {
+func (suite *AccountCmdSuite) TestAccountRootCmd() {
 	suite.APIServiceMock.On("SetToken", mock.Anything)
 
 	cmd := NewCmd(suite.CmdOptions)

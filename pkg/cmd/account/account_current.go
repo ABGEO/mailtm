@@ -2,6 +2,7 @@ package account
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/abgeo/mailtm/pkg/command"
 	"github.com/abgeo/mailtm/pkg/dto"
@@ -11,11 +12,13 @@ import (
 )
 
 type CommandCurrent struct {
+	Writer  io.Writer
 	Service service.APIServiceInterface
 }
 
 func NewCmdCurrent(options command.Options) *cobra.Command {
 	opts := &CommandCurrent{
+		Writer:  options.Writer,
 		Service: options.APIService,
 	}
 	opts.Service.SetToken(&dto.Token{
@@ -44,6 +47,7 @@ func (command *CommandCurrent) Run() error {
 	}
 
 	return pterm.DefaultTable.
+		WithWriter(command.Writer).
 		WithData(data).
 		WithSeparator(" : ").
 		WithBoxed().

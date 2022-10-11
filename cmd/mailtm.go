@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/cmd"
 	"github.com/abgeo/mailtm/pkg/command"
@@ -23,6 +25,7 @@ func main() {
 	}
 	config := configs.NewConfig()
 	cmdOpts := command.Options{
+		Writer:     os.Stdout,
 		Version:    appVersion,
 		Config:     config,
 		APIService: service.NewAPIService(appVersion),

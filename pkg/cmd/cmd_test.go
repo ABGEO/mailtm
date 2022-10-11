@@ -33,13 +33,13 @@ func TestCMDSuite(t *testing.T) {
 	suite.Run(t, new(CMDSuite))
 }
 
-func (suite *CMDSuite) Test_WithoutFlags() {
+func (suite *CMDSuite) TestNewCmd_WithoutFlags() {
 	cmd := NewCmd(suite.CmdOptions)
 
 	assert.Contains(suite.T(), suite.GetCommandOutput(cmd), "CLI client for Mail.tm disposable mail service")
 }
 
-func (suite *CMDSuite) Test_WithVersionFlag() {
+func (suite *CMDSuite) TestNewCmd_WithVersionFlag() {
 	cmd := NewCmd(suite.CmdOptions)
 	cmd.SetArgs([]string{"-v"})
 
