@@ -238,8 +238,6 @@ func (svc *APIService) GetToken(credentials dto.Credentials) (token *dto.Token, 
 	return token, nil
 }
 
-func (svc *APIService) SetToken(token *dto.Token) *APIService {
+func (svc *APIService) SetToken(token *dto.Token) {
 	svc.client.SetAuthToken(token.Token)
-
-	return svc
 }

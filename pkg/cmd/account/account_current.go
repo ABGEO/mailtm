@@ -11,7 +11,7 @@ import (
 )
 
 type CommandCurrent struct {
-	Service *service.APIService
+	Service service.APIServiceInterface
 }
 
 func NewCmdCurrent(options command.Options) *cobra.Command {

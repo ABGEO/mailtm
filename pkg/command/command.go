@@ -10,7 +10,7 @@ import (
 type Options struct {
 	Version    types.Version
 	Config     configs.Config
-	APIService *service.APIService
+	APIService service.APIServiceInterface
 	SSEService *service.SSEService
 }
 

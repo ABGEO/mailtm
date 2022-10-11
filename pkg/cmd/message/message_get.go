@@ -14,7 +14,7 @@ import (
 
 type CommandGet struct {
 	Config  configs.Config
-	Service *service.APIService
+	Service service.APIServiceInterface
 
 	ID string
 }

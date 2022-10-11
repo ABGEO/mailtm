@@ -22,7 +22,7 @@ const (
 
 type CommandRand struct {
 	Config  configs.Config
-	Service *service.APIService
+	Service service.APIServiceInterface
 }
 
 func NewCmdRandom(options command.Options) *cobra.Command {

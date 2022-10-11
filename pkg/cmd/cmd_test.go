@@ -24,7 +24,7 @@ func (suite *CMDSuite) SetupSuite() {
 
 	suite.CmdOptions = command.Options{
 		Version: appVersion,
-		// @TODO: Replace with mock.
+		// @TODO: Replace with mocks.
 		APIService: service.NewAPIService(appVersion),
 	}
 }

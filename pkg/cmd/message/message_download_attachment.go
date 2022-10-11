@@ -13,7 +13,7 @@ import (
 
 type CommandDownloadAttachment struct {
 	Config  configs.Config
-	Service *service.APIService
+	Service service.APIServiceInterface
 
 	MessageID    string
 	AttachmentID string

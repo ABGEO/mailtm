@@ -12,7 +12,7 @@ import (
 
 type CommandList struct {
 	Config     configs.Config
-	Service    *service.APIService
+	Service    service.APIServiceInterface
 	SSOService *service.SSEService
 
 	Watch bool
