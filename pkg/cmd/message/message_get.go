@@ -22,7 +22,7 @@ type CommandGet struct {
 func NewCmdGet(options command.Options) *cobra.Command {
 	opts := &CommandGet{
 		Config:  options.Config,
-		Service: service.NewAPIService(options.Version),
+		Service: options.APIService,
 	}
 	opts.Service.SetToken(&dto.Token{
 		ID:    options.Config.Auth.ID,

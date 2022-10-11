@@ -28,7 +28,7 @@ type CommandRand struct {
 func NewCmdRandom(options command.Options) *cobra.Command {
 	opts := &CommandRand{
 		Config:  options.Config,
-		Service: service.NewAPIService(options.Version),
+		Service: options.APIService,
 	}
 
 	cmds := &cobra.Command{

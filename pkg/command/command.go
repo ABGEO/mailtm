@@ -2,13 +2,16 @@ package command
 
 import (
 	"github.com/abgeo/mailtm/configs"
+	"github.com/abgeo/mailtm/pkg/service"
 	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/spf13/cobra"
 )
 
 type Options struct {
-	Version types.Version
-	Config  configs.Config
+	Version    types.Version
+	Config     configs.Config
+	APIService *service.APIService
+	SSEService *service.SSEService
 }
 
 type Command interface {

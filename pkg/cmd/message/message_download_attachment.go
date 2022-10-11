@@ -28,7 +28,7 @@ var errAttachmentNotFound = errors.New("attachment not found")
 func NewCmdDownloadAttachment(options command.Options) *cobra.Command {
 	opts := &CommandDownloadAttachment{
 		Config:  options.Config,
-		Service: service.NewAPIService(options.Version),
+		Service: options.APIService,
 	}
 	opts.Service.SetToken(&dto.Token{
 		ID:    options.Config.Auth.ID,

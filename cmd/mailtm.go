@@ -4,6 +4,7 @@ import (
 	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/cmd"
 	"github.com/abgeo/mailtm/pkg/command"
+	"github.com/abgeo/mailtm/pkg/service"
 	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/spf13/cobra"
 )
@@ -15,13 +16,17 @@ var (
 )
 
 func main() {
+	appVersion := types.Version{
+		Number: version,
+		Commit: commit,
+		Date:   date,
+	}
+	config := configs.NewConfig()
 	cmdOpts := command.Options{
-		Version: types.Version{
-			Number: version,
-			Commit: commit,
-			Date:   date,
-		},
-		Config: configs.NewConfig(),
+		Version:    appVersion,
+		Config:     config,
+		APIService: service.NewAPIService(appVersion),
+		SSEService: service.NewSSEService(appVersion, config.Auth.AuthConfig),
 	}
 	rootCmd := cmd.NewCmd(cmdOpts)
 	cobra.CheckErr(rootCmd.Execute())

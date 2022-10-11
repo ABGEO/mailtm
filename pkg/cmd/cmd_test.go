@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/abgeo/mailtm/pkg/command"
+	"github.com/abgeo/mailtm/pkg/service"
 	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/abgeo/mailtm/test"
 	"github.com/stretchr/testify/assert"
@@ -15,12 +16,16 @@ type CMDSuite struct {
 }
 
 func (suite *CMDSuite) SetupSuite() {
+	appVersion := types.Version{
+		Number: "foo",
+		Date:   "bar",
+		Commit: "baz",
+	}
+
 	suite.CmdOptions = command.Options{
-		Version: types.Version{
-			Number: "foo",
-			Date:   "bar",
-			Commit: "baz",
-		},
+		Version: appVersion,
+		// @TODO: Replace with mock.
+		APIService: service.NewAPIService(appVersion),
 	}
 }
 

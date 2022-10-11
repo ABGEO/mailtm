@@ -16,7 +16,7 @@ type CommandCurrent struct {
 
 func NewCmdCurrent(options command.Options) *cobra.Command {
 	opts := &CommandCurrent{
-		Service: service.NewAPIService(options.Version),
+		Service: options.APIService,
 	}
 	opts.Service.SetToken(&dto.Token{
 		ID:    options.Config.Auth.ID,
