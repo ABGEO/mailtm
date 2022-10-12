@@ -3,6 +3,7 @@ package auth
 import (
 	"crypto/rand"
 	"fmt"
+	"io"
 	"math/big"
 	"strings"
 
@@ -21,12 +22,14 @@ const (
 )
 
 type CommandRand struct {
+	Writer  io.Writer
 	Config  configs.Config
 	Service service.APIServiceInterface
 }
 
 func NewCmdRandom(options command.Options) *cobra.Command {
 	opts := &CommandRand{
+		Writer:  options.Writer,
 		Config:  options.Config,
 		Service: options.APIService,
 	}
@@ -94,9 +97,12 @@ func (command *CommandRand) saveAuthData(token *dto.Token, account *dto.Account)
 }
 
 func (command *CommandRand) printAccountInfo(account *dto.Account, password string) (err error) {
-	pterm.DefaultBasicText.Println("New random account has been created and authenticated")
+	pterm.DefaultBasicText.
+		WithWriter(command.Writer).
+		Println("New random account has been created and authenticated")
 
 	return pterm.DefaultTable.
+		WithWriter(command.Writer).
 		WithData(pterm.TableData{
 			{"Email", account.Address},
 			{"Password", password},

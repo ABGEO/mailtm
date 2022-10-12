@@ -22,10 +22,6 @@ type CurrentCmdSuite struct {
 	APIServiceMock *mocks.APIServiceInterface
 }
 
-func TestCurrentCmdSuite(t *testing.T) {
-	suite.Run(t, new(CurrentCmdSuite))
-}
-
 func (suite *CurrentCmdSuite) SetupSuite() {
 	suite.Buffer = bytes.NewBufferString("")
 	suite.APIServiceMock = mocks.NewAPIServiceInterface(suite.T())
@@ -43,6 +39,10 @@ func (suite *CurrentCmdSuite) SetupSuite() {
 
 func (suite *CurrentCmdSuite) TearDownTest() {
 	suite.Buffer.Reset()
+}
+
+func TestCurrentCmdSuite(t *testing.T) {
+	suite.Run(t, new(CurrentCmdSuite))
 }
 
 func (suite *CurrentCmdSuite) TestNewCmdCurrent_Success() {
