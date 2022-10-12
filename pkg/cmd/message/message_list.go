@@ -1,6 +1,8 @@
 package message
 
 import (
+	"io"
+
 	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/command"
 	"github.com/abgeo/mailtm/pkg/dto"
@@ -11,15 +13,17 @@ import (
 )
 
 type CommandList struct {
+	Writer     io.Writer
 	Config     configs.Config
 	Service    service.APIServiceInterface
-	SSOService *service.SSEService
+	SSOService service.SSEServiceInterface
 
 	Watch bool
 }
 
 func NewCmdList(options command.Options) *cobra.Command {
 	opts := &CommandList{
+		Writer:     options.Writer,
 		Config:     options.Config,
 		Service:    options.APIService,
 		SSOService: options.SSEService,

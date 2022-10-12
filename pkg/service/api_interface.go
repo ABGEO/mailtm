@@ -1,9 +1,7 @@
 //nolint:interfacebloat
 package service
 
-import (
-	"github.com/abgeo/mailtm/pkg/dto"
-)
+import "github.com/abgeo/mailtm/pkg/dto"
 
 type APIServiceInterface interface {
 	CreateAccount(data dto.AccountWrite) (account *dto.Account, err error)

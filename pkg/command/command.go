@@ -15,7 +15,7 @@ type Options struct {
 	Version    types.Version
 	Config     configs.Config
 	APIService service.APIServiceInterface
-	SSEService *service.SSEService
+	SSEService service.SSEServiceInterface
 }
 
 type Command interface {
