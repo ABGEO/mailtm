@@ -2,6 +2,7 @@ package message
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/command"
@@ -13,6 +14,7 @@ import (
 )
 
 type CommandGet struct {
+	Writer  io.Writer
 	Config  configs.Config
 	Service service.APIServiceInterface
 
@@ -21,6 +23,7 @@ type CommandGet struct {
 
 func NewCmdGet(options command.Options) *cobra.Command {
 	opts := &CommandGet{
+		Writer:  options.Writer,
 		Config:  options.Config,
 		Service: options.APIService,
 	}
@@ -60,36 +63,26 @@ func (command *CommandGet) Run() error {
 		return err
 	}
 
-	err = command.printMessage(message)
-	if err != nil {
-		return err
-	}
+	command.printMessage(message)
 
 	if message.HasAttachments {
-		err = command.printAttachments(message)
-		if err != nil {
-			return err
-		}
+		command.printAttachments(message)
 	}
 
 	return nil
 }
 
-func (command *CommandGet) printMessage(message *dto.Message) (err error) {
-	err = pterm.DefaultTable.
+func (command *CommandGet) printMessage(message *dto.Message) {
+	_ = pterm.DefaultTable.
+		WithWriter(command.Writer).
 		WithData(command.messageToTableData(message)).
 		WithSeparator(" : ").
 		WithBoxed().
 		WithLeftAlignment().
 		Render()
-	if err != nil {
-		return err
-	}
 
-	pterm.DefaultParagraph.Println()
-	pterm.DefaultParagraph.Println(message.Text)
-
-	return nil
+	pterm.DefaultParagraph.WithWriter(command.Writer).Println()
+	pterm.DefaultParagraph.WithWriter(command.Writer).Println(message.Text)
 }
 
 func (command *CommandGet) messageToTableData(message *dto.Message) (data pterm.TableData) {
@@ -104,15 +97,18 @@ func (command *CommandGet) messageToTableData(message *dto.Message) (data pterm.
 	}
 }
 
-func (command *CommandGet) printAttachments(message *dto.Message) error {
-	pterm.DefaultParagraph.Println()
-	pterm.DefaultParagraph.Println("Attachments:")
-	pterm.DefaultParagraph.Println()
+func (command *CommandGet) printAttachments(message *dto.Message) {
+	pterm.DefaultParagraph.WithWriter(command.Writer).Println()
+	pterm.DefaultParagraph.WithWriter(command.Writer).Println("Attachments:")
+	pterm.DefaultParagraph.WithWriter(command.Writer).Println()
 
 	attachments := make([]pterm.BulletListItem, len(message.Attachments))
 	for i, attachment := range message.Attachments {
 		attachments[i].Text = fmt.Sprintf("%s - %s", attachment.ID, attachment.Filename)
 	}
 
-	return pterm.DefaultBulletList.WithItems(attachments).Render()
+	_ = pterm.DefaultBulletList.
+		WithWriter(command.Writer).
+		WithItems(attachments).
+		Render()
 }
