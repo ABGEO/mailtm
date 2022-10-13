@@ -1,7 +1,9 @@
 package errors
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"os"
 	"reflect"
 	"runtime"
@@ -55,4 +57,36 @@ func (suite *CmdErrorSuite) TestCheckErr_WithCustomHandler() {
 	CheckErr("error", 1)
 
 	assert.Equal(suite.T(), "error (1)", errorMessage)
+}
+
+func (suite *CmdErrorSuite) TestCheckErr_WithAccessDeniedError() {
+	fakeExit := func(code int) { panic(fmt.Sprintf("exited with %d", code)) }
+	patch := monkey.Patch(os.Exit, fakeExit)
+
+	defer patch.Unpatch()
+
+	accessDeniedError := &HTTPError{
+		Code:   401,
+		Detail: "Access Denied",
+	}
+
+	testStderr := bytes.NewBufferString("")
+	originalStderr := os.Stderr
+	readStream, writeStream, _ := os.Pipe()
+	os.Stderr = writeStream
+	outChain := make(chan string)
+
+	assert.PanicsWithValue(suite.T(), "exited with 1", func() { CheckErr(accessDeniedError, 1) })
+
+	go func() {
+		_, _ = io.Copy(testStderr, readStream)
+		outChain <- testStderr.String()
+	}()
+
+	_ = writeStream.Close()
+
+	os.Stderr = originalStderr
+	out := <-outChain
+
+	assert.Contains(suite.T(), out, "try to run the \"mailtm auth\" command")
 }

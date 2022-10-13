@@ -9,7 +9,12 @@ var errHandler = GetDefaultErrorHandler()
 
 func GetDefaultErrorHandler() func(msg interface{}, code int) {
 	return func(msg interface{}, code int) {
-		fmt.Fprintln(os.Stderr, "Error:", msg)
+		errorMsg := fmt.Sprintf("Error: %s", msg)
+		if err, ok := msg.(*HTTPError); ok && (err.Code == 401 || err.Code == 403) {
+			errorMsg += "\ntry to run the \"mailtm auth\" command"
+		}
+
+		fmt.Fprintln(os.Stderr, errorMsg)
 		os.Exit(code)
 	}
 }
