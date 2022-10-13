@@ -10,7 +10,7 @@ var errHandler = GetDefaultErrorHandler()
 func GetDefaultErrorHandler() func(msg interface{}, code int) {
 	return func(msg interface{}, code int) {
 		errorMsg := fmt.Sprintf("Error: %s", msg)
-		if err, ok := msg.(*HTTPError); ok && (err.Code == 401 || err.Code == 403) {
+		if err, ok := msg.(*HTTPError); ok && (err.Code == 401 || err.Code == 403) && err.Detail != "Invalid credentials." {
 			errorMsg += "\ntry to run the \"mailtm auth\" command"
 		}
 

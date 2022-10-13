@@ -11,6 +11,7 @@ func NewCmd(options command.Options) *cobra.Command {
 		Short: "Manage Authentication",
 	}
 
+	cmds.AddCommand(NewCmdLogin(options))
 	cmds.AddCommand(NewCmdRandom(options))
 
 	return cmds
