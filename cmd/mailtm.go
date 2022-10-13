@@ -6,9 +6,9 @@ import (
 	"github.com/abgeo/mailtm/configs"
 	"github.com/abgeo/mailtm/pkg/cmd"
 	"github.com/abgeo/mailtm/pkg/command"
+	"github.com/abgeo/mailtm/pkg/errors"
 	"github.com/abgeo/mailtm/pkg/service"
 	"github.com/abgeo/mailtm/pkg/types"
-	"github.com/spf13/cobra"
 )
 
 var (
@@ -32,5 +32,5 @@ func main() {
 		SSEService: service.NewSSEService(appVersion, config.Auth.AuthConfig),
 	}
 	rootCmd := cmd.NewCmd(cmdOpts)
-	cobra.CheckErr(rootCmd.Execute())
+	errors.CheckErr(rootCmd.Execute(), 1)
 }
