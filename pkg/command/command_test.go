@@ -2,10 +2,11 @@ package command
 
 import (
 	"errors"
+	"fmt"
 	"os"
-	"os/exec"
 	"testing"
 
+	"bou.ke/monkey"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -16,11 +17,7 @@ var errComplete = errors.New("Complete.Error")
 type dummyCommand struct{}
 
 func (command *dummyCommand) Complete(cmd *cobra.Command, args []string) error {
-	if args[0] == "fail" {
-		return errComplete
-	}
-
-	return nil
+	return errComplete
 }
 
 func (command *dummyCommand) Validate() error { return nil }
@@ -42,21 +39,10 @@ func (suite *CMDSuite) TestGetRunner() {
 		Run: runner,
 	}
 
-	runner(cmds, []string{"pass"})
+	fakeExit := func(code int) { panic(fmt.Sprintf("exited with %d", code)) }
+	patch := monkey.Patch(os.Exit, fakeExit)
 
-	if os.Getenv("CRASH") == "1" {
-		runner(cmds, []string{"fail"})
-	}
+	defer patch.Unpatch()
 
-	//nolint:gosec
-	cmd := exec.Command(os.Args[0], "-test.run=TestCMDSuite", "-testify.m=TestGetRunner")
-	cmd.Env = append(os.Environ(), "CRASH=1")
-	err := cmd.Run()
-
-	var e *exec.ExitError
-
-	errors.As(err, &e)
-
-	assert.Equal(suite.T(), 1, e.ExitCode())
-	assert.Equal(suite.T(), false, e.Success())
+	assert.PanicsWithValue(suite.T(), "exited with 1", func() { runner(cmds, []string{}) })
 }
