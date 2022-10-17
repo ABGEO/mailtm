@@ -12,6 +12,7 @@ func NewCmd(options command.Options) *cobra.Command {
 	}
 
 	cmds.AddCommand(NewCmdCurrent(options))
+	cmds.AddCommand(NewCmdDelete(options))
 
 	return cmds
 }
