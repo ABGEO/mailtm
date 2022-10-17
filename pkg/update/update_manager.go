@@ -11,11 +11,11 @@ import (
 
 type Manager struct {
 	Version       types.Version
-	GitHubService *service.GitHubService
+	GitHubService service.GitHubServiceInterface
 	Writer        io.Writer
 }
 
-func NewManager(version types.Version, gitHubService *service.GitHubService, writer io.Writer) *Manager {
+func NewManager(version types.Version, gitHubService service.GitHubServiceInterface, writer io.Writer) *Manager {
 	return &Manager{
 		Version:       version,
 		GitHubService: gitHubService,
