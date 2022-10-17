@@ -10,10 +10,10 @@ type InvalidDomainError struct {
 	ValidDomains []string
 }
 
-func NewInvalidDomainError(domains []string, validDomain string) *InvalidDomainError {
+func NewInvalidDomainError(validDomains []string, domain string) *InvalidDomainError {
 	return &InvalidDomainError{
-		Domain:       validDomain,
-		ValidDomains: domains,
+		Domain:       domain,
+		ValidDomains: validDomains,
 	}
 }
 
