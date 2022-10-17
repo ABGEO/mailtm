@@ -13,6 +13,7 @@ func NewCmd(options command.Options) *cobra.Command {
 
 	cmds.AddCommand(NewCmdLogin(options))
 	cmds.AddCommand(NewCmdRandom(options))
+	cmds.AddCommand(NewCmdRegister(options))
 
 	return cmds
 }

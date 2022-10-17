@@ -21,11 +21,11 @@ type CommandDownloadAttachment struct {
 	FileDir string
 }
 
-const numberOfArguments = 2
-
 var errAttachmentNotFound = errors.New("attachment not found")
 
 func NewCmdDownloadAttachment(options command.Options) *cobra.Command {
+	const numberOfArguments = 2
+
 	opts := &CommandDownloadAttachment{
 		Config:  options.Config,
 		Service: options.APIService,

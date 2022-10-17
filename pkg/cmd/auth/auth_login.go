@@ -11,8 +11,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const numberOfArguments = 2
-
 type CommandLogin struct {
 	Writer  io.Writer
 	Config  configs.Config
@@ -23,6 +21,8 @@ type CommandLogin struct {
 }
 
 func NewCmdLogin(options command.Options) *cobra.Command {
+	const numberOfArguments = 2
+
 	opts := &CommandLogin{
 		Writer:  options.Writer,
 		Config:  options.Config,
