@@ -4,18 +4,22 @@ import (
 	"testing"
 
 	"github.com/abgeo/mailtm/pkg/command"
-	"github.com/abgeo/mailtm/pkg/service"
 	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/abgeo/mailtm/test"
+	"github.com/abgeo/mailtm/test/mocks"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 )
 
 type CMDSuite struct {
 	test.BaseCMDSuite
+
+	APIServiceMock *mocks.APIServiceInterface
 }
 
 func (suite *CMDSuite) SetupSuite() {
+	suite.APIServiceMock = mocks.NewAPIServiceInterface(suite.T())
 	appVersion := types.Version{
 		Number: "foo",
 		Date:   "bar",
@@ -23,10 +27,11 @@ func (suite *CMDSuite) SetupSuite() {
 	}
 
 	suite.CmdOptions = command.Options{
-		Version: appVersion,
-		// @todo: replace with mocks.
-		APIService: service.NewAPIService(appVersion),
+		Version:    appVersion,
+		APIService: suite.APIServiceMock,
 	}
+
+	suite.APIServiceMock.On("SetToken", mock.Anything)
 }
 
 func TestCMDSuite(t *testing.T) {
