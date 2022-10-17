@@ -16,9 +16,9 @@ type APIService struct {
 	client *resty.Client
 }
 
-const timeout = 30 * time.Second
-
 func NewAPIService(version types.Version) *APIService {
+	const timeout = 30 * time.Second
+
 	client := resty.New()
 	client.SetBaseURL("https://api.mail.tm").
 		SetTimeout(timeout).

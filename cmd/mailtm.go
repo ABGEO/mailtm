@@ -9,6 +9,7 @@ import (
 	"github.com/abgeo/mailtm/pkg/errors"
 	"github.com/abgeo/mailtm/pkg/service"
 	"github.com/abgeo/mailtm/pkg/types"
+	"github.com/abgeo/mailtm/pkg/update"
 )
 
 var (
@@ -23,9 +24,15 @@ func main() {
 		Commit: commit,
 		Date:   date,
 	}
+	writer := os.Stdout
+	gitHubService := service.NewGitHubService()
+	updateManager := update.NewManager(appVersion, gitHubService, writer)
+
+	updateManager.CheckUpdate()
+
 	config := configs.NewConfig()
 	cmdOpts := command.Options{
-		Writer:     os.Stdout,
+		Writer:     writer,
 		Version:    appVersion,
 		Config:     config,
 		APIService: service.NewAPIService(appVersion),
