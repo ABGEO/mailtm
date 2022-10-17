@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"time"
 
-	dto "github.com/abgeo/mailtm/pkg/dto/github"
+	"github.com/abgeo/mailtm/pkg/dto"
+	"github.com/abgeo/mailtm/pkg/errors"
 	"github.com/abgeo/mailtm/pkg/types"
 	"github.com/go-resty/resty/v2"
 )
@@ -19,7 +20,8 @@ func NewGitHubService() *GitHubService {
 	client := resty.New()
 	client.SetBaseURL("https://api.github.com/").
 		SetTimeout(timeout).
-		SetHeader("Accept", "application/vnd.github+json")
+		SetHeader("Accept", "application/vnd.github+json").
+		SetError(&errors.HTTPError{})
 
 	client.JSONMarshal = json.Marshal
 	client.JSONUnmarshal = json.Unmarshal
