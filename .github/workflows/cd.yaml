@@ -29,6 +29,10 @@ jobs:
           version: latest
           args: release
         env:
+          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          NFPM_PACKAGES_DEB_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          NFPM_PACKAGES_RPM_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          FURY_TOKEN: ${{ secrets.FURY_TOKEN }}
           AUR_KEY: ${{ secrets.AUR_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}

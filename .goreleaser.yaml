@@ -52,6 +52,32 @@ aurs:
     commit_author:
       name: "Temuri Takalandze"
       email: "takalandzet@gmail.com"
+nfpms:
+  - id: packages
+    file_name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    replacements:
+      386: i386
+      amd64: x86_64
+    vendor: ABGEO
+    homepage: https://github.com/ABGEO/mailtm
+    maintainer: "Temuri Takalandze <takalandzet@gmail.com>"
+    description: "CLI client for Mail.tm disposable mail service"
+    license: "GPL-3.0"
+    formats:
+      - deb
+      - rpm
+    deb:
+      signature:
+        key_file: '{{ .Env.GPG_KEY }}'
+    rpm:
+      signature:
+        key_file: '{{ .Env.GPG_KEY }}'
+publishers:
+  - name: fury.io
+    ids:
+      - packages
+    dir: "{{ dir .ArtifactPath }}"
+    cmd: curl -F package=@{{ .ArtifactName }} https://{{ .Env.FURY_TOKEN }}@push.fury.io/abgeo/
 checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
 snapshot:
