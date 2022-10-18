@@ -2,6 +2,7 @@ package update
 
 import (
 	"bytes"
+	"fmt"
 	"testing"
 	"time"
 
@@ -75,6 +76,10 @@ func (suite *ManagerSuite) TestCheckUpdate_IsOutdated() {
 	manager.CheckUpdate()
 
 	assert.Contains(suite.T(), suite.Buffer.String(), "New version is available!")
-	assert.Contains(suite.T(), suite.Buffer.String(), "Version 1.1.0 was released on 17 October 2022")
+	assert.Contains(
+		suite.T(),
+		suite.Buffer.String(),
+		fmt.Sprintf("Version 1.1.0 was released on %s", fixture.PublishedAt.Format("02 January 2006")),
+	)
 	assert.Contains(suite.T(), suite.Buffer.String(), "You can download it from https://foo.bar/v1.1.0")
 }
