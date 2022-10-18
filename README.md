@@ -44,12 +44,65 @@
 
 ## Installation
 
+<details>
+<summary>APT</summary>
+
+```shell
+# Add repository to APT List.
+cat > /etc/apt/sources.list.d/abgeo.list <<EOF
+deb [trusted=yes] https://registry.abgeo.cloud/apt/ /
+EOF
+
+# APT Update & Install package.
+apt update
+apt install mailtm
+```
+</details>
+
+<details>
+<summary>YUM</summary>
+
+```shell
+# Add repository to YUM List.
+cat > /etc/yum.repos.d/ABGEO.repo <<EOF
+[abgeo]
+name=ABGEO's Packages
+baseurl=https://registry.abgeo.cloud/yum/
+enabled=1
+gpgcheck=0
+EOF
+
+# YUM Install package.
+yum install mailtm
+```
+</details>
+
+<details>
+<summary>AUR</summary>
+
+```shell
+yay -S mailtm-bin
+```
+</details>
+
+<details>
+<summary>Docker</summary>
+
+```shell
+docker run --rm -v "$PWD/.mailtm:/root/.mailtm" abgeo/mailtm
+```
+</details>
+
+<details>
+<summary>Binary</summary>
+
 - Go to the [Releases](https://github.com/ABGEO/mailtm/releases) page and download the version suitable for your OS.
+- Optionally [Verify the Source](#verify-source-optional).
 - Extract `mailtm` binary file from the archive: `tar -xzf mailtm_*.tar.gz mailtm`
 - Make `mailtm` file executable: `chmod +x mailtm`
 - Move `mailtm` to a location in your `PATH`: `sudo mv mailtm /usr/local/bin/`
 
-### Verify Installation
+#### Verify Source (Optional)
 
 `mailtm` releases are signed using PGP key (rsa4096) with fingerprint 
 `5B8D 6B31 D430 43AD 711C  7C10 0E28 CC94 816E 5E0C`. Our key can be retrieved from common keyservers.
@@ -64,6 +117,7 @@ gpg --verify mailtm_*_checksums.txt.sig mailtm_*_checksums.txt
 # Verify checksum.
 sha256sum --ignore-missing -c mailtm_*_checksums.txt
 ```
+</details>
 
 ## Usage
 
