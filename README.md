@@ -45,8 +45,8 @@
 ## Installation
 
 - Go to the [Releases](https://github.com/ABGEO/mailtm/releases) page and download the version suitable for your OS.
-- Extract `mailtm` binary file from the archive.
-- Make `mailtm` executable: `chmod +x mailtm`
+- Extract `mailtm` binary file from the archive: `tar -xzf mailtm_*.tar.gz mailtm`
+- Make `mailtm` file executable: `chmod +x mailtm`
 - Move `mailtm` to a location in your `PATH`: `sudo mv mailtm /usr/local/bin/`
 
 ### Verify Installation
