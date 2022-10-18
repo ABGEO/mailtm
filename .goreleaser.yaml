@@ -21,6 +21,23 @@ archives:
     format_overrides:
       - goos: windows
         format: zip
+dockers:
+  - id: mailtm
+    goos: linux
+    goarch: amd64
+    image_templates:
+      - "abgeo/{{.ProjectName}}:{{ .Tag }}"
+      - "abgeo/{{.ProjectName}}:v{{ .Major }}.{{ .Minor }}"
+      - "abgeo/{{.ProjectName}}:latest"
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.description=CLI client for Mail.tm disposable mail service"
+      - "--label=org.opencontainers.image.authors=Temuri Takalandze <takalandzet@gmail.com>"
+      - "--label=org.opencontainers.image.url=https://github.com/ABGEO/mailtm"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
 checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
 snapshot:
