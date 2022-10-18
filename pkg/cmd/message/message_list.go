@@ -115,7 +115,7 @@ func (command *CommandList) drawTableInArea(area *pterm.AreaPrinter, tableHeader
 }
 
 func (command *CommandList) watchMessages(area *pterm.AreaPrinter, tableHeader []string, tableData pterm.TableData) {
-	// @todo: We also receive an event when message is seen. We have to fix it.
+	// @TODO: We also receive an event when message is seen. We have to fix it.
 	_ = command.SSOService.SubscribeMessages(command.Config.Auth.ID, func(message dto.MessagesItem) {
 		tableData = append(pterm.TableData{command.messageToTableRow(message)}, tableData...)
 

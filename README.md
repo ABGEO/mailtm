@@ -4,6 +4,9 @@
 <p>CLI client for <a href="https://mail.tm">Mail.tm</a> disposable mail service</p>
 
 <p>
+    <a href="https://github.com/abgeo/mailtm/releases">
+        <img alt="GitHub release" src="https://img.shields.io/github/release/abgeo/mailtm.svg">
+    </a>
     <a href="https://github.com/abgeo/mailtm">
         <img alt="GitHub go.mod Go version of a Go module" src="https://img.shields.io/github/go-mod/go-version/abgeo/mailtm.svg">
     </a>
@@ -41,14 +44,25 @@
 
 ## Installation
 
-## Binary
+- Go to the [Releases](https://github.com/ABGEO/mailtm/releases) page and download the version suitable for your OS.
+- Extract `mailtm` binary file from the archive.
+- Make `mailtm` executable: `chmod +x mailtm`
+- Move `mailtm` to a location in your `PATH`: `sudo mv mailtm /usr/local/bin/`
 
-Go to the [Releases](https://github.com/ABGEO/mailtm/releases) page and download the version suitable for your OS.
+### Verify Installation
 
-## Source
+`mailtm` releases are signed using PGP key (rsa4096) with fingerprint 
+`5B8D 6B31 D430 43AD 711C  7C10 0E28 CC94 816E 5E0C`. Our key can be retrieved from common keyservers.
 
 ```shell
-$ go install github.com/abgeo/mailtm@latest
+# Import key.
+curl -s 'https://keys.openpgp.org/vks/v1/by-fingerprint/5B8D6B31D43043AD711C7C100E28CC94816E5E0C' | gpg --import
+
+# Verify signature.
+gpg --verify mailtm_*_checksums.txt.sig mailtm_*_checksums.txt
+
+# Verify checksum.
+sha256sum --ignore-missing -c mailtm_*_checksums.txt
 ```
 
 ## Usage
