@@ -48,7 +48,7 @@ aurs:
     git_url: "ssh://aur@aur.archlinux.org/{{ .ProjectName }}-bin.git"
     package: |-
       install -Dm755 "./{{ .ProjectName }}" "${pkgdir}/usr/bin/{{ .ProjectName }}"
-      install -Dm644 "./LICENSE.md" "${pkgdir}/usr/share/licenses/{{ .ProjectName }}/LICENSE"
+      install -Dm644 "./LICENSE" "${pkgdir}/usr/share/licenses/{{ .ProjectName }}/LICENSE"
     commit_author:
       name: "Temuri Takalandze"
       email: "takalandzet@gmail.com"
