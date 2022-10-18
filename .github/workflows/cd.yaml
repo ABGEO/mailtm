@@ -19,6 +19,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - uses: "DamianReeves/write-file-action@master"
+        with:
+          path: /tmp/gpg_key
+          write-mode: overwrite
+          contents: ${{ secrets.GPG_PRIVATE_KEY }}
       - id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v5
         with:
@@ -29,7 +34,7 @@ jobs:
           version: latest
           args: release
         env:
-          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_KEY_FILE: /tmp/gpg_key
           NFPM_PACKAGES_DEB_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           NFPM_PACKAGES_RPM_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           FURY_TOKEN: ${{ secrets.FURY_TOKEN }}

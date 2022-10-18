@@ -68,10 +68,10 @@ nfpms:
       - rpm
     deb:
       signature:
-        key_file: '{{ .Env.GPG_KEY }}'
+        key_file: '{{ .Env.GPG_KEY_FILE }}'
     rpm:
       signature:
-        key_file: '{{ .Env.GPG_KEY }}'
+        key_file: '{{ .Env.GPG_KEY_FILE }}'
 publishers:
   - name: fury.io
     ids:
