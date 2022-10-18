@@ -38,6 +38,20 @@ dockers:
       - "--label=org.opencontainers.image.created={{.Date}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
+aurs:
+  - homepage: "https://github.com/ABGEO/mailtm"
+    description: "CLI client for Mail.tm disposable mail service"
+    maintainers:
+      - "Temuri Takalandze <takalandzet@gmail.com>"
+    license: "GPL-3.0"
+    private_key: "{{ .Env.AUR_KEY }}"
+    git_url: "ssh://aur@aur.archlinux.org/{{ .ProjectName }}-bin.git"
+    package: |-
+      install -Dm755 "./{{ .ProjectName }}" "${pkgdir}/usr/bin/{{ .ProjectName }}"
+      install -Dm644 "./LICENSE.md" "${pkgdir}/usr/share/licenses/{{ .ProjectName }}/LICENSE"
+    commit_author:
+      name: "Temuri Takalandze"
+      email: "takalandzet@gmail.com"
 checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
 snapshot:
