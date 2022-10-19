@@ -72,6 +72,22 @@ nfpms:
     rpm:
       signature:
         key_file: '{{ .Env.GPG_KEY_FILE }}'
+brews:
+  -
+    description: "CLI client for Mail.tm disposable mail service"
+    license: "GPL-3.0"
+    homepage: "https://github.com/ABGEO/mailtm"
+    tap:
+      owner: abgeo
+      name: homebrew-mailtm
+    commit_author:
+      name: "Temuri Takalandze"
+      email: "takalandzet@gmail.com"
+    folder: Formula
+    test: |-
+      system "#{bin}/mailtm", "--help"
+    install: |-
+      bin.install "mailtm"
 publishers:
   - name: fury.io
     ids:

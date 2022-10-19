@@ -86,6 +86,18 @@ yay -S mailtm-bin
 </details>
 
 <details>
+<summary>Homebrew</summary>
+
+```shell
+# Add Tap.
+brew tap abgeo/mailtm
+
+# Install Formulae.
+brew install mailtm
+```
+</details>
+
+<details>
 <summary>Docker</summary>
 
 ```shell
